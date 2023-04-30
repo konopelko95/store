@@ -97,8 +97,8 @@
             padding: 10px;
             border-radius: 5px;
             border: none;
-            background-color: #000;
-            color: #fff;
+            background-color: #fff;
+            color: #000;
             font-weight: bold;
             cursor: pointer;
         }
@@ -128,7 +128,7 @@
 
         .menu-frame {
             background-color: #fff;
-            border: 1px solid #fff;
+            border: 1px solid #000;
             width: 100%;
             padding: 20px;
             display: flex;
@@ -150,8 +150,9 @@
             border: none;
             background-color: #333;
             color: #fff;
-            font-weight: bold;
-            width: 100%;
+            font-weight:
+            bold;
+        width: 100%;
         margin-bottom: 10px;
     }
 
@@ -159,23 +160,58 @@
         font-weight: bold;
         margin-top: 10px;
     }
+
+    .payment-wrapper {
+        background-color: #fff;
+        border-radius: 10px;
+        padding: 20px;
+        max-width: 400px;
+        width: 100%;
+        text-align: center;
+        position: relative;
+        margin-top: 20px;
+        display: none;
+    }
+
+    .payment-title {
+        font-size: 24px;
+        font-weight: bold;
+        color: #000;
+        margin-bottom: 10px;
+    }
+
+    .payment-input {
+        padding: 5px;
+        border-radius: 5px;
+        border: none;
+        background-color: #333;
+        color: #fff;
+        font-weight: bold;
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .confirm-button {
+        margin-top: 20px;
+    }
+
+    .success-message {
+        margin-top: 20px;
+        font-weight: bold;
+        display: none;
+    }
 </style>
 </head>
 <body>
     <div class="container">
         <div class="images">
-            <!-- <img class="image" src="https://via.placeholder.com/200x200" alt="Image 1">
+            <img class="image" src="https://via.placeholder.com/200x200" alt="Image 1">
             <img class="image" src="https://via.placeholder.com/200x200" alt="Image 2">
             <img class="image" src="https://via.placeholder.com/200x200" alt="Image 3">
-            <img class="image" src="https://via.placeholder.com/200x200" alt="Image 4"> -->
-
-            <img class="image" src="C:\Users\vladk\arbeit\store2\images\01.jpg" alt="Image 1">
-            <img class="image" src="C:\Users\vladk\arbeit\store2\images\02.jpg" alt="Image 2">
-            <img class="image" src="C:\Users\vladk\arbeit\store2\images\03.jpg" alt="Image 3">
-            <img class="image" src="C:\Users\vladk\arbeit\store2\images\04.jpg" alt="Image 4">
+            <img class="image" src="https://via.placeholder.com/200x200" alt="Image 4">
         </div>
         <div class="menu-wrapper">
-            <div class="menu-title">Jeep Erson Wallet</div>
+            <div class="menu-title">Buy Cryptocurrency</div>
             <div class="menu-frame">
                 <div>
                     <label for="currency" class="menu-label">Currency:</label>
@@ -184,58 +220,78 @@
                         <option value="USD">USD</option>
                     </select>
                 </div>
-                <!-- <div>
+                <div>
                     <label for="price" class="menu-label">Price:</label>
                     <input type="text" id="price" class="menu-input" disabled>
-                </div> -->
+                </div>
                 <div>
                     <label for="items" class="menu-label">Items:</label>
                     <select name="items" id="items" class="menu-input">
                         <option value="1">1</option>
                         <option value="2">2</option>
-                        <option value="3">4</option>
-                        <option value="4">5</option>
-                        <option value="5">6</option>
+                        <option value="3">3</option>
                     </select>
                 </div>
-                <div>
-                    <label for="price" class="menu-label">Price:</label>
-                    <input type="text" id="price" class="menu-input" disabled>
-                </div>
-                <button type="submit" class="menu-input">Buy</button>
+                <button type="button" class="menu-input" id="buy-button">Buy</button>
             </div>
         </div>
-        <!-- <div class="form-wrapper">
+        <div class="form-wrapper">
             <div class="form-title">Order Summary</div>
-            <div id="result"></div> -->
+            <div id="result"></div>
         </div>
-    </div>
-    <script>
-        const form = document.getElementById('buy-form');
-        const result = document.getElementById('result');
-        const currencyInput = document.getElementById('currency');
-        const itemsInput = document.getElementById('items');
-        const priceInput = document.getElementById('price');
-    
-        form.addEventListener('submit', (event) => {
-            event.preventDefault();
-    
-            const currency = currencyInput.value;
-            const items = itemsInput.value;
-            const amount = items * 50;
-    
-            priceInput.value = `${amount} ${currency}`;
-    
-            fetch(`/buy?currency=${currency}&amount=${amount}`)
-                .then(response => response.json())
-                .then(data => {
-                    result.innerText = data.message;
-                })
-                .catch(error => {
-                    console.error(error);
-                });
-        });
-    </script>
-    </body>
-    </html>
-    
+        <div class="payment-wrapper">
+            <div class="payment-title">Payment Details</div>
+            <div>
+                <label for="card-number" class="menu-label">Card Number:</label>
+                <input type="text" id="card-number" class="payment-input">
+            </div>
+            <div>
+                <label for="card-name" class="menu-label">Name:</label>
+                <input type="text" id="card-name" class="payment-input">
+            </div>
+            <div>
+                <label for="card-surname" class="menu-label">Surname:</label>
+                <input type="text" id="card-surname" class="payment-input">
+                </div>
+                <div>
+                <label for="card-expiry" class="menu-label">Expiry:</label>
+                <input type="text" id="card-expiry" class="payment-input" placeholder="MM/YY">
+                </div>
+                <div>
+                <label for="card-cvv" class="menu-label">CVV:</label>
+                <input type="text" id="card-cvv" class="payment-input">
+                </div>
+                <button type="button" class="menu-input confirm-button" id="confirm-button">Confirm</button>
+                </div>
+                <div class="success-message" id="success-message">Purchase successful</div>
+                </div>
+                <script>
+                    const form = document.getElementById('buy-form');
+                    const result = document.getElementById('result');
+                    const currencyInput = document.getElementById('currency');
+                    const itemsInput = document.getElementById('items');
+                    const priceInput = document.getElementById('price');
+                    const buyButton = document.getElementById('buy-button');
+                    const paymentWrapper = document.querySelector('.payment-wrapper');
+                    const confirmButton = document.getElementById('confirm-button');
+                    const successMessage = document.getElementById('success-message');
+                
+                    form.addEventListener('submit', (event) => {
+                        event.preventDefault();
+                
+                        const currency = currencyInput.value;
+                        const items = itemsInput.value;
+                        const amount = items * 50;
+                
+                        priceInput.value = `${amount} ${currency}`;
+                
+                        paymentWrapper.style.display = 'block';
+                    });
+                
+                    confirmButton.addEventListener('click', () => {
+                        successMessage.style.display = 'block';
+                        paymentWrapper.style.display = 'none';
+                    });
+                </script>
+</body>
+</html>                

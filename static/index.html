@@ -97,11 +97,19 @@
             padding: 10px;
             border-radius: 5px;
             border: none;
-            background-color: #fff;
-            color: #000;
+            background-color: #444;
+            color: #fff;
             font-weight: bold;
             cursor: pointer;
         }
+        
+        button:active {
+             background-color: gray;
+        }
+
+        .buy-button:active {
+            background-color: gray;
+        }       
 
         #result {
             text-align: center;
@@ -200,6 +208,10 @@
         font-weight: bold;
         display: none;
     }
+    .price {
+        font-weight: bold;
+        margin-top: 10px;
+    }
 </style>
 </head>
 <body>
@@ -213,85 +225,115 @@
         <div class="menu-wrapper">
             <div class="menu-title">Jeep Erson Wallet</div>
             <div class="menu-frame">
-                <div>
-                    <label for="currency" class="menu-label">Currency:</label>
-                    <select name="currency" id="currency" class="menu-input">
-                        <option value="EUR">EUR</option>
-                        <option value="USD">USD</option>
-                    </select>
+
+            <form id="buy-form">
+                <div class="form-field">
+                  <label for="currency">Currency:</label>
+                  <select name="currency" id="currency">
+                    <option value="EUR">EUR</option>
+                    <option value="USD">USD</option>
+                  </select>
                 </div>
                 <div>
-                    <label for="price" class="menu-label">Price:</label>
-                    <input type="text" id="price" class="menu-input" disabled>
+                  <label for="price" class="menu-label">Price: 50</label>
                 </div>
-                <div>
-                    <label for="items" class="menu-label">Items:</label>
-                    <select name="items" id="items" class="menu-input">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                    </select>
+              
+                <div class="form-field">
+                  <label for="items">Items:</label>
+                  <select name="items" id="items">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                  </select>
                 </div>
-                <button type="button" class="menu-input" id="buy-button">Buy</button>
-            </div>
-        </div>
-        <div class="form-wrapper">
-            <div class="form-title">Order Summary</div>
-            <div id="result"></div>
-        </div>
-        <div class="payment-wrapper">
-            <div class="payment-title">Payment Details</div>
-            <div>
-                <label for="card-number" class="menu-label">Card Number:</label>
-                <input type="text" id="card-number" class="payment-input">
-            </div>
-            <div>
-                <label for="card-name" class="menu-label">Name:</label>
-                <input type="text" id="card-name" class="payment-input">
-            </div>
-            <div>
-                <label for="card-surname" class="menu-label">Surname:</label>
-                <input type="text" id="card-surname" class="payment-input">
+              
+                <div id="card-credentials" style="display: none;">
+                  <div class="form-field">
+                    <label for="card-number">Card Number:</label>
+                    <input type="text" name="cardNumber" id="card-number" required>
+                  </div>
+              
+                  <div class="form-field">
+                    <label for="name">Name:</label>
+                    <input type="text" name="name" id="name" required>
+                  </div>
+              
+                  <div class="form-field">
+                    <label for="surname">Surname:</label>
+                    <input type="text" name="surname" id="surname" required>
+                  </div>
+              
+                  <div class="form-field">
+                    <label for="expiry">Expiry:</label>
+                    <input type="text" name="expiry" id="expiry" required>
+                  </div>
+              
+                  <div class="form-field">
+                    <label for="cvv">CVV:</label>
+                    <input type="text" name="cvv" id="cvv" required>
+                  </div>
                 </div>
-                <div>
-                <label for="card-expiry" class="menu-label">Expiry:</label>
-                <input type="text" id="card-expiry" class="payment-input" placeholder="MM/YY">
+              
+                <div class="form-buttons">
+                  <button type="button" id="show-card-credentials">Buy</button>
+                  <button type="submit" id="submit" style="display: none;">Confirm</button>
+                  <button type="button" id="cancel" style="display: none;">Cancel</button>
                 </div>
-                <div>
-                <label for="card-cvv" class="menu-label">CVV:</label>
-                <input type="text" id="card-cvv" class="payment-input">
-                </div>
-                <button type="button" class="menu-input confirm-button" id="confirm-button">Confirm</button>
-                </div>
-                <div class="success-message" id="success-message">Purchase successful</div>
-                </div>
+              
+                <div id="result"></div>
+              
                 <script>
-                    const form = document.getElementById('buy-form');
-                    const result = document.getElementById('result');
-                    const currencyInput = document.getElementById('currency');
-                    const itemsInput = document.getElementById('items');
-                    const priceInput = document.getElementById('price');
-                    const buyButton = document.getElementById('buy-button');
-                    const paymentWrapper = document.querySelector('.payment-wrapper');
-                    const confirmButton = document.getElementById('confirm-button');
-                    const successMessage = document.getElementById('success-message');
-                
-                    form.addEventListener('submit', (event) => {
-                        event.preventDefault();
-                
-                        const currency = currencyInput.value;
-                        const items = itemsInput.value;
-                        const amount = items * 50;
-                
-                        priceInput.value = `${amount} ${currency}`;
-                
-                        paymentWrapper.style.display = 'block';
-                    });
-                
-                    confirmButton.addEventListener('click', () => {
-                        successMessage.style.display = 'block';
-                        paymentWrapper.style.display = 'none';
-                    });
-                </script>
+                  const form = document.getElementById('buy-form');
+                  const result = document.getElementById('result');
+                  const showCardCredentialsButton = document.getElementById('show-card-credentials');
+                  const submitButton = document.getElementById('submit');
+                  const cancelButton = document.getElementById('cancel');
+                  const cardCredentials = document.getElementById('card-credentials');
+              
+                  showCardCredentialsButton.addEventListener('click', () => {
+                    showCardCredentialsButton.style.display = 'none';
+                    cardCredentials.style.display = 'block';
+                    submitButton.style.display = 'block';
+                    cancelButton.style.display = 'block';
+                  });
+              
+                  cancelButton.addEventListener('click', () => {
+                    showCardCredentialsButton.style.display = 'block';
+                    cardCredentials.style.display = 'none';
+                    submitButton.style.display = 'none';
+                    cancelButton.style.display = 'none';
+              
+                    // Reset the form fields
+                    form.reset();
+                  });
+              
+                  form.addEventListener('submit', (event) => {
+                    event.preventDefault();
+              
+                    // Get the form data and send the request
+                    const formData = new FormData(form);
+                    fetch('/buy', {
+                      method: 'POST',
+                      body: formData
+                    })
+                      .then(response => response.json())
+                      .then(data => {
+                        result.innerText = data
+    
+                              // Reset the form fields
+          showCardCredentialsButton.style.display = 'block';
+          cardCredentials.style.display = 'none';
+          submitButton.style.display = 'none';
+          cancelButton.style.display = 'none';
+          form.reset();
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    });
+    </script>
+ 
 </body>
 </html>                

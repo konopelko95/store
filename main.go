@@ -65,6 +65,7 @@ func main() {
     payment := reqWrapper.Payment
     amount := order.Items * 50
 
+
     // Log order information to console
 	fmt.Printf("Payment: %v\n", *payment)
     fmt.Printf("Amount: %d %s\n", amount, order.Currency)

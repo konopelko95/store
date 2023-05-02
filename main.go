@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"time"
 	"os"
 
 	_ "github.com/lib/pq"
@@ -26,7 +25,6 @@ type Payment struct {
 }
 
 func main() {
-
 	dir, err := os.Getwd()
 	if err != nil {
 		log.Fatal(err)
@@ -37,63 +35,49 @@ func main() {
 	fs := http.FileServer(http.Dir("./static"))
 	http.Handle("/", fs)
 
-	log.Fatal(http.ListenAndServe(":8080", nil))
-
-	db, err := sql.Open("postgres", "postgres://user:password@hostname:port/database?sslmode=require")
+	db, err := sql.Open("postgres", "postgres://hrtivrrt:KghCpKhtC8lJj-6LK6nzn5ZfRxXroMM5@john.db.elephantsql.com/hrtivrrt")
 	if err != nil {
 		log.Fatal(err)
 	}
 	defer db.Close()
 
-	http.Handle("/", fs)
-
 	http.HandleFunc("/buy", func(w http.ResponseWriter, r *http.Request) {
-		if r.Method != "POST" {
-			http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
-			return
-		}
+    if r.Method != "POST" {
+        http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+        return
+    }
 
-		var order Order
-		err := json.NewDecoder(r.Body).Decode(&order)
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusBadRequest)
-			return
-		}
+    // Create a wrapper struct to correctly decode the JSON request body
+    type RequestWrapper struct {
+        Order   *Order   `json:"Order"`
+        Payment *Payment `json:"Payment"`
+    }
 
-		amount := order.Items * 50
+    // Decode JSON request body into the RequestWrapper struct
+    var reqWrapper RequestWrapper
+    err := json.NewDecoder(r.Body).Decode(&reqWrapper)
+    if err != nil {
+        http.Error(w, err.Error(), http.StatusBadRequest)
+        return
+    }
 
-		// Log order information to console
-		fmt.Printf("Order: %v\n", order)
-		fmt.Printf("Amount: %d %s\n", amount, order.Currency)
+    order := reqWrapper.Order
+    payment := reqWrapper.Payment
+    amount := order.Items * 50
 
-		// Log order information to database
-		statement, err := db.Prepare("INSERT INTO orders(date, time, sum, card_number, name, surname, expiry, cvv) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)")
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
-		defer statement.Close()
+    // Log order information to console
+	fmt.Printf("Payment: %v\n", *payment)
+    fmt.Printf("Amount: %d %s\n", amount, order.Currency)
 
-		now := time.Now()
-		date := now.Format("2006-01-02")
-		t := now.Format("15:04:05")
 
-		payment := Payment{}
-		err = json.NewDecoder(r.Body).Decode(&payment)
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusBadRequest)
-			return
-		}
 
-		_, err = statement.Exec(date, t, amount, payment.CardNumber, payment.Name, payment.Surname, payment.Expiry, payment.CVV)
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
+    // Send the response to the client
+    w.Header().Set("Content-Type", "application/json")
+    json.NewEncoder(w).Encode(map[string]interface{}{
+        "message": fmt.Sprintf("Ordered %d items\n Total amount: %d %s", order.Items, amount, order.Currency),
+    })
+})
 
-		w.Header().Set("Content-Type", "application/json")
-		json.NewEncoder(w).Encode(map[string]string{"message": "Purchase successful"})
-	})
 
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }

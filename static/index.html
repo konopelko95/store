@@ -1,339 +1,158 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <title>Buy Cryptocurrency</title>
-    <meta charset="utf-8">
-    <style>
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            background-color: #111;
-            color: #fff;
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-
-        .container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            position: relative;
-        }
-
-        .header {
-            background-color: #fff;
-            height: 10px;
-            width: 100%;
-        }
-
-        .images {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-            height: 200px;
-            margin-top: 20px;
-        }
-
-        .image {
-            width: 200px;
-            height: 200px;
-        }
-
-        .form-wrapper {
-            background-color: #fff;
-            border-radius: 10px;
-            padding: 20px;
-            max-width: 400px;
-            width: 100%;
-            text-align: center;
-            position: relative;
-            margin-top: 20px;
-        }
-
-        .form-title {
-            font-size: 24px;
-            font-weight: bold;
-            color: #000;
-        }
-
-        h1 {
-            margin-top: 0;
-            text-align: center;
-        }
-
-        form {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        div {
-            margin-bottom: 10px;
-        }
-
-        label {
-            font-weight: bold;
-            margin-right: 10px;
-            color: #000;
-        }
-
-        input, select {
-            padding: 5px;
-            border-radius: 5px;
-            border: none;
-            background-color: #333;
-            color: #fff;
-            font-weight: bold;
-            width: 100%;
-            margin-bottom: 10px;
-        }
-
-        button[type="submit"] {
-            padding: 10px;
-            border-radius: 5px;
-            border: none;
-            background-color: #444;
-            color: #fff;
-            font-weight: bold;
-            cursor: pointer;
-        }
-        
-        button:active {
-             background-color: gray;
-        }
-
-        .buy-button:active {
-            background-color: gray;
-        }       
-
-        #result {
-            text-align: center;
-            margin-top: 20px;
-            font-weight: bold;
-        }
-
-        .menu-wrapper {
-            background-color: #fff;
-            border-radius: 10px;
-            padding: 20px;
-            max-width: 400px;
-            width: 100%;
-            text-align: center;
-            position: relative;
-            margin-top: 20px;
-        }
-
-        .menu-title {
-            font-size: 24px;
-            font-weight: bold;
-            color: #000;
-        }
-
-        .menu-frame {
-            background-color: #fff;
-            border: 1px solid #fff;
-            width: 100%;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            margin-top: 20px;
-        }
-
-        .menu-label {
-            font-weight: bold;
-            margin-right: 10px;
-            color: #000;
-        }
-
-        .menu-input {
-            padding: 5px;
-            border-radius: 5px;
-            border: none;
-            background-color: #333;
-            color: #fff;
-            font-weight:
-            bold;
-        width: 100%;
-        margin-bottom: 10px;
-    }
-
-    .price {
-        font-weight: bold;
-        margin-top: 10px;
-    }
-
-    .payment-wrapper {
-        background-color: #fff;
-        border-radius: 10px;
-        padding: 20px;
-        max-width: 400px;
-        width: 100%;
-        text-align: center;
-        position: relative;
-        margin-top: 20px;
-        display: none;
-    }
-
-    .payment-title {
-        font-size: 24px;
-        font-weight: bold;
-        color: #000;
-        margin-bottom: 10px;
-    }
-
-    .payment-input {
-        padding: 5px;
-        border-radius: 5px;
-        border: none;
-        background-color: #333;
-        color: #fff;
-        font-weight: bold;
-        width: 100%;
-        margin-bottom: 10px;
-    }
-
-    .confirm-button {
-        margin-top: 20px;
-    }
-
-    .success-message {
-        margin-top: 20px;
-        font-weight: bold;
-        display: none;
-    }
-    .price {
-        font-weight: bold;
-        margin-top: 10px;
-    }
-</style>
-</head>
-<body>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
     <div class="container">
-        <div class="images">
-            <img class="image" src="./images/01.jpg" alt="Image 1">
-            <img class="image" src="./images/02.jpg" alt="Image 2">
-            <img class="image" src="./images/03.jpg" alt="Image 3">
-            <img class="image" src="./images/04.jpg" alt="Image 4">
-        </div>
-        <div class="menu-wrapper">
-            <div class="menu-title">Jeep Erson Wallet</div>
-            <div class="menu-frame">
+      <div class="images">
+        <img class="image" src="./images/01.jpg" alt="Image 1" />
+        <img class="image" src="./images/02.jpg" alt="Image 2" />
+        <img class="image" src="./images/03.jpg" alt="Image 3" />
+        <img class="image" src="./images/04.jpg" alt="Image 4" />
+      </div>
+      <div class="menu-wrapper">
+        <div class="menu-title">Jeep Erson Wallet</div>
+        <div class="menu-frame">
+          <form id="buy-form">
+            <div class="form-field">
+              <label for="currency">Currency:</label>
+              <select name="currency" id="currency">
+                <option value="EUR">EUR</option>
+                <option value="USD">USD</option>
+              </select>
+            </div>
+            <div>
+              <label for="price" class="menu-label">Price: 50</label>
+            </div>
 
-            <form id="buy-form">
-                <div class="form-field">
-                  <label for="currency">Currency:</label>
-                  <select name="currency" id="currency">
-                    <option value="EUR">EUR</option>
-                    <option value="USD">USD</option>
-                  </select>
-                </div>
-                <div>
-                  <label for="price" class="menu-label">Price: 50</label>
-                </div>
-              
-                <div class="form-field">
-                  <label for="items">Items:</label>
-                  <select name="items" id="items">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                  </select>
-                </div>
-              
-                <div id="card-credentials" style="display: none;">
-                  <div class="form-field">
-                    <label for="card-number">Card Number:</label>
-                    <input type="text" name="cardNumber" id="card-number" required>
-                  </div>
-              
-                  <div class="form-field">
-                    <label for="name">Name:</label>
-                    <input type="text" name="name" id="name" required>
-                  </div>
-              
-                  <div class="form-field">
-                    <label for="surname">Surname:</label>
-                    <input type="text" name="surname" id="surname" required>
-                  </div>
-              
-                  <div class="form-field">
-                    <label for="expiry">Expiry:</label>
-                    <input type="text" name="expiry" id="expiry" required>
-                  </div>
-              
-                  <div class="form-field">
-                    <label for="cvv">CVV:</label>
-                    <input type="text" name="cvv" id="cvv" required>
-                  </div>
-                </div>
-              
-                <div class="form-buttons">
-                  <button type="button" id="show-card-credentials">Buy</button>
-                  <button type="submit" id="submit" style="display: none;">Confirm</button>
-                  <button type="button" id="cancel" style="display: none;">Cancel</button>
-                </div>
-              
-                <div id="result"></div>
-              
-                <script>
-                  const form = document.getElementById('buy-form');
-                  const result = document.getElementById('result');
-                  const showCardCredentialsButton = document.getElementById('show-card-credentials');
-                  const submitButton = document.getElementById('submit');
-                  const cancelButton = document.getElementById('cancel');
-                  const cardCredentials = document.getElementById('card-credentials');
-              
-                  showCardCredentialsButton.addEventListener('click', () => {
-                    showCardCredentialsButton.style.display = 'none';
-                    cardCredentials.style.display = 'block';
-                    submitButton.style.display = 'block';
-                    cancelButton.style.display = 'block';
-                  });
-              
-                  cancelButton.addEventListener('click', () => {
-                    showCardCredentialsButton.style.display = 'block';
-                    cardCredentials.style.display = 'none';
-                    submitButton.style.display = 'none';
-                    cancelButton.style.display = 'none';
-              
+            <div class="form-field">
+              <label for="items">Items:</label>
+              <select name="items" id="items">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+            </div>
+
+            <div id="card-credentials" style="display: none;">
+              <div class="form-field">
+                <label for="card-number">Card Number:</label>
+                <input type="text" name="cardNumber" id="card-number" required />
+              </div>
+
+              <div class="form-field">
+                <label for="name">Name:</label>
+                <input type="text" name="name" id="name" required />
+              </div>
+
+              <div class="form-field">
+                <label for="surname">Surname:</label>
+                <input type="text" name="surname" id="surname" required />
+              </div>
+
+              <div class="form-field">
+                <label for="expiry">Expiry:</label>
+                <input type="text" name="expiry" id="expiry" required />
+              </div>
+
+              <div class="form-field">
+                <label for="cvv">CVV:</label>
+                <input type="text" name="cvv" id="cvv" required />
+              </div>
+            </div>
+
+            <div class="form-buttons">
+              <button type="button" id="show-card-credentials">Buy</button>
+              <button type="submit" id="submit" style="display: none;">
+                Confirm
+              </button>
+              <button type="button" id="cancel" style="display: none;">
+                Cancel
+              </button>
+            </div>
+
+            <div id="result"></div>
+
+            <script>
+              const form = document.getElementById("buy-form");
+              const result = document.getElementById("result");
+              const showCardCredentialsButton = document.getElementById(
+                "show-card-credentials"
+              );
+              const submitButton = document.getElementById("submit");
+              const cancelButton = document.getElementById("cancel");
+              const cardCredentials = document.getElementById("card-credentials");
+
+              showCardCredentialsButton.addEventListener("click", () => {
+                showCardCredentialsButton.style.display = "none";
+                cardCredentials.style.display = "block";
+                submitButton.style.display = "block";
+                cancelButton.style.display = "block";
+              });
+
+              cancelButton.addEventListener("click", () => {
+                showCardCredentialsButton.style.display = "block";
+                cardCredentials.style.display = "none";
+                submitButton.style.display = "none";
+                cancelButton.style.display = "none";
+
+                // Reset the form fields
+                form.reset();
+              });
+
+              function formToJson(form) {
+                const formData = new FormData(form);
+                const json = {
+                  Order: {},
+                  Payment: {}
+                };
+                for (const [key, value] of formData.entries()) {
+                  if (["currency", "items"].includes(key)) {
+                    json.Order[key.charAt(0).toUpperCase() + key.slice(1)] = value;
+                  } else {
+                    json.Payment[key.charAt(0).toUpperCase() + key.slice(1)] = value;
+                  }
+                }
+                json.Order.Items = parseInt(json.Order.Items, 10); // Convert items to an integer
+                return JSON.stringify(json);
+              }
+
+              form.addEventListener("submit", (event) => {
+                event.preventDefault();
+
+                // Get the form data and send the request
+                const formDataJson = formToJson(form);
+                fetch("/buy", {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json"
+                  },
+                  body: formDataJson
+                })
+                  .then((response) => response.json())
+                  .then((data) => {
+                    result.innerText = data.message;
+
                     // Reset the form fields
+                    showCardCredentialsButton.style.display = "block";
+                    cardCredentials.style.display = "none";
+                    submitButton.style.display = "none";
+                    cancelButton.style.display = "none";
                     form.reset();
+                  })
+                  .catch((error) => {
+                    console.error(error);
                   });
-              
-                  form.addEventListener('submit', (event) => {
-                    event.preventDefault();
-              
-                    // Get the form data and send the request
-                    const formData = new FormData(form);
-                    fetch('/buy', {
-                      method: 'POST',
-                      body: formData
-                    })
-                      .then(response => response.json())
-                      .then(data => {
-                        result.innerText = data
-    
-                              // Reset the form fields
-          showCardCredentialsButton.style.display = 'block';
-          cardCredentials.style.display = 'none';
-          submitButton.style.display = 'none';
-          cancelButton.style.display = 'none';
-          form.reset();
-        })
-        .catch(error => {
-          console.error(error);
-        });
-    });
-    </script>
- 
-</body>
-</html>                
+              });
+            </script>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
